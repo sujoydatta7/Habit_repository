@@ -1,0 +1,42 @@
+.habit-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  transition: background 0.3s;
+  width: 50%;
+  cursor: pointer;
+}
+
+.habit-card.completed {
+  background: #e0ffe0;
+  opacity: 0.8;
+}
+
+.habit-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.habit-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.habit-streak {
+  font-size: 14px;
+  color: #666;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
