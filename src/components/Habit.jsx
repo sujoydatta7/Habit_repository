@@ -5,15 +5,10 @@ export default function Habit({ habit, onDelete, onView }) {
 
   return (
     <div
-      className={`habit-card ${completed ? "completed" : ""}`}
+      className={`habit-card clickable-card ${completed ? "completed" : ""}`}
       onClick={onView}
     >
-      <div className="habit-info">
-        {/* <input
-          type="checkbox"
-          checked={completed}
-          onChange={() => onToggle(habit)}
-        /> */}
+      <div>
         <div>
           <div className="habit-name">{name}</div>
           <div className="habit-streak">

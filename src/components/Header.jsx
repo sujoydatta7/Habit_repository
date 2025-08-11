@@ -1,19 +1,18 @@
 import Button from "../assets/Button";
-export default function Header() {
+export default function Header({ handleLogoutFunc }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        width: "100%",
-        backgroundColor: "purple",
-      }}
-    >
+    <header>
       <div style={{ width: "50%", color: "white" }}>
         <h1>Habit tracker</h1>
       </div>
-      <div style={{ width: "50%", alignItems: "self-end" }}>
-        <Button name="Login"></Button>
+      <div
+        style={{
+          width: "50%",
+          alignItems: "flex-end",
+        }}
+      >
+        <Button name="Logout" onClick={handleLogoutFunc}></Button>
       </div>
-    </div>
+    </header>
   );
 }

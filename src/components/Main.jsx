@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import Habit from "./Habit";
 import { HabitsContext } from "../store/HabitsContext";
+import Button from "../assets/Button";
 
 export default function Main() {
   const [habitName, setHabitName] = useState("");
@@ -27,8 +28,8 @@ export default function Main() {
     habitCtx.updateHabit(habitObject);
   }
   return (
-    <div>
-      <div style={{ display: "flex", width: "87%", justifyContent: "center" }}>
+    <div style={{ width: "50%" }}>
+      <div style={{ display: "flex", justifyContent: "start" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -48,17 +49,7 @@ export default function Main() {
             onChange={handleInputChange}
             required
           />
-          <button
-            style={{
-              margin: "10px",
-              height: "30px",
-              borderRadius: "10px",
-              fontSize: "18px",
-            }}
-            type="submit"
-          >
-            +Add habit
-          </button>
+          <Button type="submit" name="+Add habit"></Button>
         </form>
       </div>
       <div>

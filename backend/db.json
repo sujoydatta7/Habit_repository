@@ -1,8 +1,12 @@
 {
   "habits": [
     {
+      "name": "Angular",
+      "streak": 1
+    },
+    {
       "name": "React.js",
-      "streak": 3
+      "streak": 6
     }
   ]
 }

@@ -17,14 +17,9 @@
   opacity: 0.8;
 }
 
-.habit-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
 
 .habit-name {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
 }
 

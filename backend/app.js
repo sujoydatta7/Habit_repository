@@ -1,14 +1,22 @@
 import fs from "node:fs/promises";
 
 import express from "express";
-import { resolve } from "node:path";
-// import { resolve } from "node:path";
 
 async function loadHabits() {
   try {
     const dbFileData = await fs.readFile("./db.json");
     const parsedData = JSON.parse(dbFileData);
     return parsedData.habits;
+  } catch (error) {
+    return [];
+  }
+}
+
+async function loadUsers() {
+  try {
+    const dbFileData = await fs.readFile("./userDB.json");
+    const parsedData = JSON.parse(dbFileData);
+    return parsedData.users;
   } catch (error) {
     return [];
   }
@@ -50,35 +58,11 @@ async function updateStreak(habitObject) {
   );
 }
 
-async function saveOpinion(opinion) {
-  const opinions = await loadHabits();
-  const newOpinion = { id: new Date().getTime(), votes: 0, ...opinion };
-  opinions.unshift(newOpinion);
-  const dataToSave = { opinions };
-  await fs.writeFile("./db.json", JSON.stringify(dataToSave, null, 2));
-  return newOpinion;
-}
-
-async function upvoteOpinion(id) {
-  const opinions = await loadHabits();
-  const opinion = opinions.find((o) => o.id === id);
-  if (!opinion) {
-    return null;
-  }
-  opinion.votes++;
-  await fs.writeFile("./db.json", JSON.stringify({ opinions }, null, 2));
-  return opinion;
-}
-
-async function downvoteOpinion(id) {
-  const opinions = await loadHabits();
-  const opinion = opinions.find((o) => o.id === id);
-  if (!opinion) {
-    return null;
-  }
-  opinion.votes--;
-  await fs.writeFile("./db.json", JSON.stringify({ opinions }, null, 2));
-  return opinion;
+async function login(user) {
+  const users = await loadUsers();
+  users.unshift(user);
+  await fs.writeFile("./userDB.json", JSON.stringify({ users }, null, 2));
+  return true;
 }
 
 const app = express();
@@ -131,7 +115,6 @@ app.post("/deleteHabit", async (req, res) => {
 });
 
 app.post("/updateStreak", async (req, res) => {
-  const { name } = req.body;
   await new Promise((resolve) => setTimeout(resolve, 1000));
   try {
     await updateStreak(req.body);
@@ -140,33 +123,11 @@ app.post("/updateStreak", async (req, res) => {
   } catch (err) {}
 });
 
-app.post("/opinions/:id/upvote", async (req, res) => {
-  const { id } = req.params;
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  try {
-    const opinion = await upvoteOpinion(Number(id));
-    if (!opinion) {
-      return res.status(404).json({ error: "Opinion not found." });
-    }
-    res.json(opinion);
-  } catch (error) {
-    res.status(500).json({ error: "Error upvoting opinion." });
-  }
-});
-
-app.post("/opinions/:id/downvote", async (req, res) => {
-  const { id } = req.params;
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  try {
-    const opinion = await downvoteOpinion(Number(id));
-    if (!opinion) {
-      return res.status(404).json({ error: "Opinion not found." });
-    }
-    res.json(opinion);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Error downvoting opinion." });
-  }
+  const response = await login({ username, password });
+  res.status(201).json(response);
 });
 
 app.listen(3000, () => {
