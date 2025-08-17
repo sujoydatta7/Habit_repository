@@ -70,14 +70,9 @@ header {
 }
 
 .clickable-card {
-  background-color: white;
-  padding: 16px 20px;
-  margin: 12px auto;
-  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  max-width: 400px;
   text-align: center;
   font-size: 1.1rem;
   font-weight: 500;
